@@ -1,10 +1,8 @@
 {
-  "name": "fullstack-accelerator",
+  "name": "w00-guessing-game",
+  "type": "module",
   "private": true,
-  "workspaces": [
-    "week-*"
-  ],
-  "engines": {
-    "node": ">=20"
+  "scripts": {
+    "start": "node game.js"
   }
 }
