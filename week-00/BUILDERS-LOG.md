@@ -44,7 +44,7 @@
 |------|------|----------|
 | 1 | Hello Player | console.log, readline, 變數 |
 | 2 | The Secret Number | Math.random, if/else, 比較 |
-| 3 | Keep Guessing | while 迴圈, 計數器 |
+| 3 | Keep Guessing | 重複執行（遞迴）, 計數器 |
 | 4 | Playing It Safe | 輸入驗證, 次數限制 |
 | 5 | Final Polish | function, 重玩, 歷史紀錄 |
 | Challenge | 難度選擇 | 物件/陣列, 選單邏輯 |
