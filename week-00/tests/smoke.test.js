@@ -14,9 +14,8 @@ describe('W0 猜數字遊戲 — Smoke Tests', () => {
   });
 
   it('可以用 node game.js 啟動不報錯', async () => {
-    const result = await new Promise((resolve, reject) => {
+    const result = await new Promise((resolve) => {
       const child = spawn('node', [gamePath], {
-        timeout: 5000,
         stdio: ['pipe', 'pipe', 'pipe'],
       });
 
@@ -25,14 +24,15 @@ describe('W0 猜數字遊戲 — Smoke Tests', () => {
         stderr += data.toString();
       });
 
-      // Send some input then close to let it exit
-      setTimeout(() => {
-        child.stdin.write('test\n');
-        setTimeout(() => {
-          child.kill();
-          resolve({ stderr });
-        }, 1000);
-      }, 500);
+      // Send some input to let the game proceed then close
+      child.stdin.write('test\n');
+      child.stdin.end();
+
+      child.on('close', () => {
+        resolve({ stderr });
+      });
+
+      setTimeout(() => child.kill(), 3000);
     });
 
     assert.strictEqual(

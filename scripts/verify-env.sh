@@ -30,17 +30,17 @@ OS=$(detect_os)
 
 check_pass() {
   echo -e "  ${GREEN}[✓]${NC} $1"
-  ((pass++))
+  pass=$((pass + 1))
 }
 
 check_fail() {
   echo -e "  ${RED}[✗]${NC} $1"
-  ((fail++))
+  fail=$((fail + 1))
 }
 
 check_optional() {
   echo -e "  ${YELLOW}[○]${NC} $1"
-  ((optional_fail++))
+  optional_fail=$((optional_fail + 1))
 }
 
 install_hint() {

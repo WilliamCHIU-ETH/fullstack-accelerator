@@ -1,5 +1,6 @@
 {
   "name": "week-00",
+  "type": "module",
   "private": true,
   "scripts": {
     "test": "node --test tests/"
