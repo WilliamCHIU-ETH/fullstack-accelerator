@@ -1,0 +1,10 @@
+{
+  "name": "fullstack-accelerator",
+  "private": true,
+  "workspaces": [
+    "week-*"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}
