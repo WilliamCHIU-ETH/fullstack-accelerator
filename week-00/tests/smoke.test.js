@@ -10,7 +10,10 @@ const gamePath = resolve(__dirname, '..', 'my-work', 'game.js');
 
 describe('W0 猜數字遊戲 — Smoke Tests', () => {
   it('game.js 檔案存在', () => {
-    assert.ok(existsSync(gamePath), 'my-work/game.js 不存在。請先建立你的遊戲檔案。');
+    assert.ok(
+      existsSync(gamePath),
+      'my-work/game.js 不存在。請先建立你的遊戲檔案。'
+    );
   });
 
   it('可以用 node game.js 啟動不報錯', async () => {

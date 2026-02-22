@@ -67,9 +67,20 @@ describe('W0 猜數字遊戲 — 核心功能', () => {
   });
 
   it('輸入太高的數字時回應「太高」相關訊息', async () => {
-    const result = await runGame(['100', '100', '100', '100', '100', '100', '100', 'n']);
+    const result = await runGame([
+      '100',
+      '100',
+      '100',
+      '100',
+      '100',
+      '100',
+      '100',
+      'n',
+    ]);
     assert.ok(
-      result.stdout.includes('太高') || result.stdout.includes('猜對') || result.stdout.includes('恭喜'),
+      result.stdout.includes('太高') ||
+        result.stdout.includes('猜對') ||
+        result.stdout.includes('恭喜'),
       '輸入較大數字時應該回應「太高」'
     );
   });
@@ -77,13 +88,25 @@ describe('W0 猜數字遊戲 — 核心功能', () => {
   it('輸入太低的數字時回應「太低」相關訊息', async () => {
     const result = await runGame(['1', '1', '1', '1', '1', '1', '1', 'n']);
     assert.ok(
-      result.stdout.includes('太低') || result.stdout.includes('猜對') || result.stdout.includes('恭喜'),
+      result.stdout.includes('太低') ||
+        result.stdout.includes('猜對') ||
+        result.stdout.includes('恭喜'),
       '輸入較小數字時應該回應「太低」'
     );
   });
 
   it('輸入非數字時顯示錯誤提示且不計次數', async () => {
-    const result = await runGame(['abc', '50', '50', '50', '50', '50', '50', '50', 'n']);
+    const result = await runGame([
+      'abc',
+      '50',
+      '50',
+      '50',
+      '50',
+      '50',
+      '50',
+      '50',
+      'n',
+    ]);
     assert.ok(
       result.stdout.includes('有效') || result.stdout.includes('數字'),
       '輸入非數字時應該提示輸入有效的數字'
@@ -93,7 +116,10 @@ describe('W0 猜數字遊戲 — 核心功能', () => {
   it('超過最大次數時遊戲結束並顯示答案', async () => {
     const result = await runGame(['2', '3', '4', '5', '6', '7', '8', 'n']);
     assert.ok(
-      result.stdout.includes('遊戲結束') || result.stdout.includes('答案是') || result.stdout.includes('猜對') || result.stdout.includes('恭喜'),
+      result.stdout.includes('遊戲結束') ||
+        result.stdout.includes('答案是') ||
+        result.stdout.includes('猜對') ||
+        result.stdout.includes('恭喜'),
       '用完猜測次數後應該顯示遊戲結束和答案'
     );
   });

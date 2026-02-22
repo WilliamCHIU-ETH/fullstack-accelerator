@@ -1,52 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Card — 參考範例</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-gray-100 flex items-center justify-center">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Card — 參考範例</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div class="w-80 bg-white rounded-xl shadow-lg overflow-hidden">
+      <!-- Header gradient -->
+      <div class="h-24 bg-gradient-to-r from-blue-400 to-blue-600"></div>
 
-  <div class="w-80 bg-white rounded-xl shadow-lg overflow-hidden">
-    <!-- Header gradient -->
-    <div class="h-24 bg-gradient-to-r from-blue-400 to-blue-600"></div>
-
-    <!-- Avatar -->
-    <div class="flex justify-center -mt-12">
-      <div class="w-24 h-24 rounded-full bg-gray-300 border-4 border-white"></div>
-    </div>
-
-    <!-- Info -->
-    <div class="text-center px-6 mt-4">
-      <h2 class="text-lg font-bold text-gray-800">王小明</h2>
-      <p class="text-sm text-gray-500 font-medium">全端開發學習者</p>
-      <p class="text-sm text-gray-400 mt-2">正在用 16 週的時間，從零開始學習全端開發。熱愛寫 code 和解決問題。</p>
-    </div>
-
-    <!-- Stats -->
-    <div class="flex justify-between px-6 mt-4 py-4 border-t border-gray-100">
-      <div class="text-center">
-        <p class="font-bold text-gray-800">12</p>
-        <p class="text-sm text-gray-400">Posts</p>
+      <!-- Avatar -->
+      <div class="flex justify-center -mt-12">
+        <div
+          class="w-24 h-24 rounded-full bg-gray-300 border-4 border-white"
+        ></div>
       </div>
-      <div class="text-center">
-        <p class="font-bold text-gray-800">256</p>
-        <p class="text-sm text-gray-400">Followers</p>
+
+      <!-- Info -->
+      <div class="text-center px-6 mt-4">
+        <h2 class="text-lg font-bold text-gray-800">王小明</h2>
+        <p class="text-sm text-gray-500 font-medium">全端開發學習者</p>
+        <p class="text-sm text-gray-400 mt-2">
+          正在用 16 週的時間，從零開始學習全端開發。熱愛寫 code 和解決問題。
+        </p>
       </div>
-      <div class="text-center">
-        <p class="font-bold text-gray-800">48</p>
-        <p class="text-sm text-gray-400">Following</p>
+
+      <!-- Stats -->
+      <div class="flex justify-between px-6 mt-4 py-4 border-t border-gray-100">
+        <div class="text-center">
+          <p class="font-bold text-gray-800">12</p>
+          <p class="text-sm text-gray-400">Posts</p>
+        </div>
+        <div class="text-center">
+          <p class="font-bold text-gray-800">256</p>
+          <p class="text-sm text-gray-400">Followers</p>
+        </div>
+        <div class="text-center">
+          <p class="font-bold text-gray-800">48</p>
+          <p class="text-sm text-gray-400">Following</p>
+        </div>
+      </div>
+
+      <!-- Follow button -->
+      <div class="px-6 pb-6">
+        <button
+          class="w-full py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition"
+        >
+          Follow
+        </button>
       </div>
     </div>
-
-    <!-- Follow button -->
-    <div class="px-6 pb-6">
-      <button class="w-full py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition">
-        Follow
-      </button>
-    </div>
-  </div>
-
-</body>
+  </body>
 </html>

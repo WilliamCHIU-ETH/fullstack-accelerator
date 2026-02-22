@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  # ── 慣例與鎖定檢查 ─────────────────────────────
+  check-conventions:
+    name: Conventions & Locks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check locked weeks
+        run: bash scripts/check-locks.sh
+
+      - name: Check project conventions
+        run: bash scripts/check-conventions.sh
+
+  # ── Lint & Format ──────────────────────────────
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Prettier
+        run: npm run format
+
+  # ── 偵測哪些 week 有變更（僅 PR）────────────────
+  detect-changes:
+    name: Detect Changed Weeks
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      weeks: ${{ steps.detect.outputs.weeks }}
+      has-changes: ${{ steps.detect.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed weeks
+        id: detect
+        run: |
+          WEEKS=$(bash scripts/detect-changed-weeks.sh)
+          echo "weeks=$WEEKS" >> "$GITHUB_OUTPUT"
+          if [ "$WEEKS" = "[]" ]; then
+            echo "has-changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has-changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  # ── 測試變更的 week（僅 PR）─────────────────────
+  test-changed:
+    name: Test ${{ matrix.week }}
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: github.event_name == 'pull_request' && needs.detect-changes.outputs.has-changes == 'true'
+    strategy:
+      matrix:
+        week: ${{ fromJson(needs.detect-changes.outputs.weeks) }}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests for ${{ matrix.week }}
+        run: npm test --workspace=${{ matrix.week }}
+
+  # ── 全部測試（僅 push main/dev）────────────────
+  test-all:
+    name: Test All Weeks
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all tests
+        run: npm test
