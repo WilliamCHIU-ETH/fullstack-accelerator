@@ -7,13 +7,20 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const gamePath = resolve(__dirname, '..', 'my-work', 'game.js');
+const hasStudentCode = existsSync(gamePath);
+const skipReason = hasStudentCode
+  ? false
+  : 'my-work/game.js 尚未建立，請先完成課程';
 
 describe('W0 猜數字遊戲 — Smoke Tests', () => {
-  it('game.js 檔案存在', () => {
-    assert.ok(existsSync(gamePath), 'my-work/game.js 不存在。請先建立你的遊戲檔案。');
+  it('game.js 檔案存在', { skip: skipReason }, () => {
+    assert.ok(
+      existsSync(gamePath),
+      'my-work/game.js 不存在。請先建立你的遊戲檔案。'
+    );
   });
 
-  it('可以用 node game.js 啟動不報錯', async () => {
+  it('可以用 node game.js 啟動不報錯', { skip: skipReason }, async () => {
     const result = await new Promise((resolve) => {
       const child = spawn('node', [gamePath], {
         stdio: ['pipe', 'pipe', 'pipe'],

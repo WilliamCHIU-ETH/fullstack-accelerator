@@ -31,6 +31,16 @@
 - 先解釋「為什麼」，再給「怎麼做」
 - 用類比幫助理解抽象概念
 
+## CI / 自動化
+
+- GitHub Actions CI 在 push main/dev 和 PR 時自動執行
+- CI 檢查項目：ESLint、Prettier、lock guard、convention checker、測試
+- 本地驗證指令：
+  - `npm run lint` — ESLint 檢查
+  - `npm run format` — Prettier 格式檢查
+  - `npm test` — 透過 Turborepo 跑所有 week 測試
+  - `bash scripts/check-locks.sh` — 鎖定週次檢查
+  - `bash scripts/check-conventions.sh` — 慣例檢查
 ## 驗證標準
 - 每次修改 `week-XX/my-work/` 後，在該 week 目錄執行 `npm test` 確認測試通過
 - 新增的 code 必須通過該週的 smoke.test.js
@@ -45,7 +55,7 @@
 ## 已鎖定週次（DO NOT MODIFY）
 
 以下週次的教材已通過審查，未經明確指示不得修改任何檔案：
-- week-00/（W0 課前作業）— 鎖定於 tag w0-locked
+- week-00/（W0 課前作業）— 鎖定於 CI lock guard
 
 如需修改已鎖定週次，必須：
 1. 我明確說「解鎖 W0」
