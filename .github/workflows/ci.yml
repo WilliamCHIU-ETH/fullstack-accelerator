@@ -17,6 +17,8 @@ jobs:
           fetch-depth: 0
 
       - name: Check locked weeks
+        env:
+          SKIP_LOCK_CHECK: ${{ contains(github.event.pull_request.labels.*.name, 'unlock-week') }}
         run: bash scripts/check-locks.sh
 
       - name: Check project conventions

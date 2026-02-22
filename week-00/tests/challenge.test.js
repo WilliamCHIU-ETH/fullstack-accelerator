@@ -1,11 +1,16 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
+import { existsSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const gamePath = resolve(__dirname, '..', 'my-work', 'game.js');
+const hasStudentCode = existsSync(gamePath);
+const skipReason = hasStudentCode
+  ? false
+  : 'my-work/game.js 尚未建立，請先完成課程';
 
 function runGame(inputs) {
   return new Promise((resolve) => {
@@ -37,7 +42,7 @@ function runGame(inputs) {
 }
 
 describe('W0 猜數字遊戲 — 延伸挑戰', () => {
-  it('支援至少兩種難度等級', async () => {
+  it('支援至少兩種難度等級', { skip: skipReason }, async () => {
     const result = await runGame([
       '1',
       '50',
@@ -61,7 +66,7 @@ describe('W0 猜數字遊戲 — 延伸挑戰', () => {
     );
   });
 
-  it('不同難度有不同的數字範圍或猜測次數', async () => {
+  it('不同難度有不同的數字範圍或猜測次數', { skip: skipReason }, async () => {
     const easyResult = await runGame([
       '1',
       '50',
@@ -96,7 +101,7 @@ describe('W0 猜數字遊戲 — 延伸挑戰', () => {
     assert.ok(hasEasyConfig || hasHardConfig, '不同難度應該有不同的設定');
   });
 
-  it('遊戲結束後可以選擇再玩一局', async () => {
+  it('遊戲結束後可以選擇再玩一局', { skip: skipReason }, async () => {
     const inputs = ['2'];
     for (let i = 0; i < 7; i++) inputs.push('50');
     inputs.push('y');

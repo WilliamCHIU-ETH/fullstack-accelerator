@@ -8,6 +8,12 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+# ── 允許講師跳過鎖定檢查（透過 PR label 觸發）────
+if [ "${SKIP_LOCK_CHECK:-}" = "true" ]; then
+  echo "⏭️  Lock check skipped (SKIP_LOCK_CHECK=true)"
+  exit 0
+fi
+
 echo "🔒 Checking locked weeks..."
 
 # ── 鎖定週次定義 ──────────────────────────────────
